@@ -1,0 +1,14 @@
+import { createContext, useContext } from "react";
+
+const CartContext = createContext({});
+
+const CartProvider = ({children}) => {
+    return (
+        <CartContext.Provider value={{ items: [], onAddItem: () => {} }}> 
+            {children}
+        </CartContext.Provider>
+    )
+}
+export default CartProvider; 
+
+export const useCart = () =>  useContext(CartContext);

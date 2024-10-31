@@ -12,7 +12,6 @@ type ProductListItemProps = {
 };
 
 const ProductListItem = ({ product }) => {
-  console.log(11, product.id)
   return (
     <Link href={`/menu/${product.id}`} asChild>
       <Pressable style={styles.container}>
