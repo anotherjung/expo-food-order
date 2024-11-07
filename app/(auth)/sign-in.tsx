@@ -1,7 +1,7 @@
 import { View, Text, TextInput, StyleSheet, Alert } from "react-native";
 import { useState } from "react";
-import { Link, Stack } from 'expo-router';
 import { Colors } from "@/constants/Colors";
+import { Link, Stack } from 'expo-router';
 import Button from "@/components/Button";
 
 const SignInScreen = () => {
