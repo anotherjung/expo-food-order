@@ -15,7 +15,7 @@ const OrderListItem = ( { order }: OrderListItemProps ) => {
         <Pressable style={styles.container}>
           <View>
             <Text style={styles.title}>Order #{order.id}</Text>
-            <Text style={styles.time}>{order.created_at}</Text>
+            <Text style={styles.time}>Time: {order.created_at}</Text>
           </View>
   
           <Text style={styles.status}>{order.status}</Text>
