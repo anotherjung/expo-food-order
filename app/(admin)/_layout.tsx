@@ -25,7 +25,16 @@ export default function TabLayout() {
           ),
         }}
       /> 
+      <Tabs.Screen
+        name="order"
+        options={{
+          title: 'Order',
+          headerShown: false,
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'list' : 'list-outline'} color={color} />
+          ),
+        }}
+      /> 
     </Tabs>
   );
 }
-  
