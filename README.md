@@ -21,6 +21,8 @@ npx expo run:android --device
 
 npx expo prebuild --platform android
 
+npx expo run:android --device
+
 ## Get a fresh project
 
 When you're ready, run:
