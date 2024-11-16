@@ -9,7 +9,6 @@ export const useProductList = () => {
           if (error) {
             throw new Error(error.message);
           }
-          console.warn(44,data)
           return data;  
         },
       });

@@ -1,8 +1,17 @@
-import { FlatList } from 'react-native';
+import { FlatList, ActivityIndicator, Text } from 'react-native';
 import ProductListItem from '@/components/productListItem';
-import products from '@/assets/data/products';
+import { useQuery } from '@tanstack/react-query'
+import { useProductList } from '@/api/products'
 
-export default function HomeScreen() {
+export default function MenuScreen() {
+  const { data: products, error, isLoading } = useProductList();
+
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+  if (error) {
+    return <Text>Failed to fetch products</Text>;
+  }
 
   return (
       <FlatList 

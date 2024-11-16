@@ -6,8 +6,14 @@ import { useQuery } from '@tanstack/react-query'
 import { useProductList } from '@/api/products'
 
 export default function MenuScreen() {
-
   const { data: products, error, isLoading } = useProductList();
+
+  if (isLoading) {
+    return <ActivityIndicator />;
+  }
+  if (error) {
+    return <Text>Failed to fetch products</Text>;
+  }
 
   return (
       <FlatList 
