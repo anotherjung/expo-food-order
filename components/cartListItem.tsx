@@ -3,17 +3,18 @@ import React from 'react';
 import { Colors } from '@/constants/Colors';
 import { CartItem } from '@types';
 import { useCart } from '@/providers/CartProvider';
+import { defaultPizzaImage } from './productListItem';
+import RemoteImage from './RemoteImage';
 
 type CartListItemProps = {
     cartItem: CartItem;
 };
 
 const CartListItem = ({ cartItem }: CartListItemProps) => {
-    console.log(22, cartItem)
     const { updateQuantity } = useCart();
     return (
         <View style={styles.container}>
-            <Image style={styles.image} source={{ uri: cartItem.product.image }} />
+            <RemoteImage path={cartItem.product.image} fallback={defaultPizzaImage} style={styles.image} resizeMode="contain" />
             <View style={{ flex: 1 }}>
                 <Text style={styles.title}>{cartItem.product.name}</Text>
                 <View style={styles.subtitleContainer}>
