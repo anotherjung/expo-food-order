@@ -22,7 +22,7 @@ export const useProduct = (id:number) => {
             .select('*')
             .eq('id', id)
             .single();
-            
+
             if (error) {
             throw new Error(error.message);
             }
@@ -30,3 +30,29 @@ export const useProduct = (id:number) => {
         },
         });
     }
+
+export const useInsertProduct = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        async mutationFn(data: any) {
+            console.warn(11,"api",data)
+        const { error, data: newProduct } = await supabase
+            .from('products')
+            .insert({
+            name: data.name,
+            image: data.image,
+            price: data.price,
+            })
+            .single();
+    
+        if (error) {
+            throw new Error(error.message);
+        }
+        return newProduct;
+        },
+        async onSuccess() {
+        await queryClient.invalidateQueries(['products']);
+        },
+    });
+    };

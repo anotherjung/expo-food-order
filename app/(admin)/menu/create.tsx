@@ -5,6 +5,9 @@ import Button from '@/components/Button';
 import { defaultPizzaImage } from '@/components/productListItem';
 import * as ImagePicker from 'expo-image-picker';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import {
+  useInsertProduct,
+} from '@/api/products';
 
 const CreateProductScreen = () => {
     const [name, setName] = useState('');
@@ -53,10 +56,22 @@ const CreateProductScreen = () => {
         }
       };
 
+    const { mutate: insertProduct } = useInsertProduct();
     const onCreate = async () => {
         if (!validateInput()) {
           return;
         }
+        console.warn(33,"create p")
+
+        insertProduct(
+          { name, price: parseFloat(price), image },
+          {
+            onSuccess: () => {
+              resetFields();
+              router.back();
+            },
+          }
+        );
       };
 
       const onUpdate = async () => {
