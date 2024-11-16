@@ -4,15 +4,19 @@ import OrderItemListItem from '@/components/OrderItemListItem';
 import OrderListItem from '@/components/OrderListItem';
 import { OrderStatusList } from '@/types';
 import { Colors } from '@/constants/Colors';
-import { useOrderDetails } from '@/api/orders';
+import { useOrderDetails, useUpdateOrder } from '@/api/orders';
 
 const OrderDetailScreen = () => {
   const { id: idString } = useLocalSearchParams();
   const id = parseFloat(typeof idString === 'string' ? idString : idString[0]);
   const { data: order, isLoading, error } = useOrderDetails(id);
+  const { mutate: updateOrder } = useUpdateOrder();
 
     const updateStatus = async(status:string) => {
-      console.warn(67,status)
+      await updateOrder({
+        id: id,
+        updatedFields: { status },
+      });
     }
 
     if (!order) {

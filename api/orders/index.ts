@@ -7,7 +7,7 @@ export const useAdminOrderList = () => {
     return useQuery({
         queryKey: ['orders'],
         queryFn: async () => {
-          const { data, error } = await supabase.from('orders').select('*');
+          const { data, error } = await supabase.from('orders').select('*').order('created_at', { ascending: false });
           if (error) {
             throw new Error(error.message);
           }
@@ -76,4 +76,34 @@ export const useInsertOrder = () => {
         await queryClient.invalidateQueries(['orders']);
         },
     });
+};
+
+export const useUpdateOrder = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    async mutationFn({
+      id,
+      updatedFields,
+    }: {
+      id: number;
+      updatedFields: UpdateTables<'orders'>;
+    }) {
+      const { error, data: updatedOrder } = await supabase
+        .from('orders')
+        .update(updatedFields)
+        .eq('id', id)
+        .select()
+        .single();
+
+      if (error) {
+        throw new Error(error.message);
+      }
+      return updatedOrder;
+    },
+    async onSuccess(_, { id }) {
+      await queryClient.invalidateQueries(['orders']);
+      await queryClient.invalidateQueries(['orders', id]);
+    },
+  });
 };
