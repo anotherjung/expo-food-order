@@ -54,7 +54,6 @@ const CreateProductScreen = () => {
     const isUpdating = !!idString;
 
     const onSubmit = () => {
-        console.log(44,name,price,image,errors)
         if (isUpdating) {
           // update
           onUpdate();
@@ -71,8 +70,6 @@ const CreateProductScreen = () => {
         }
 
         const imagePath = await uploadImage();
-
-        console.warn(33,"create", imagePath)
 
         insertProduct(
           { name, price: parseFloat(price), image: imagePath },
