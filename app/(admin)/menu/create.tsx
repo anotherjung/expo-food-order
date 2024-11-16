@@ -70,7 +70,6 @@ const CreateProductScreen = () => {
         }
 
         const imagePath = await uploadImage();
-
         insertProduct(
           { name, price: parseFloat(price), image: imagePath },
           {
@@ -97,8 +96,9 @@ const CreateProductScreen = () => {
           return;
         }
 
+        const imagePath = await uploadImage();
         updateProduct(
-          { id, name, price: parseFloat(price), image },
+          { id, name, price: parseFloat(price), image: imagePath },
           {
             onSuccess: () => {
               resetFields();
@@ -161,7 +161,6 @@ const CreateProductScreen = () => {
           .upload(filePath, decode(base64), { contentType });
     
         console.log(error);
-        console.log(44,data)
     
         if (data) {
           return data.path;
