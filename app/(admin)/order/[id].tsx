@@ -1,15 +1,15 @@
 import { ActivityIndicator, FlatList, Text, View, StyleSheet, Pressable } from 'react-native';
 import { Stack, useLocalSearchParams } from 'expo-router';
-import orders from '@/assets/data/orders';
 import OrderItemListItem from '@/components/OrderItemListItem';
 import OrderListItem from '@/components/OrderListItem';
 import { OrderStatusList } from '@/types';
 import { Colors } from '@/constants/Colors';
+import { useOrderDetails } from '@/api/orders';
 
 const OrderDetailScreen = () => {
-    const { id } = useLocalSearchParams();
-
-    const order = orders.find((o) => o.id.toString() === id);
+  const { id: idString } = useLocalSearchParams();
+  const id = parseFloat(typeof idString === 'string' ? idString : idString[0]);
+  const { data: order, isLoading, error } = useOrderDetails(id);
 
     const updateStatus = async(status:string) => {
       console.warn(67,status)
