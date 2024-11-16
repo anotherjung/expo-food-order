@@ -5,7 +5,6 @@ import orders from '@/assets/data/orders'
 import OrderListItem from '@/components/OrderListItem';
 
 export default function OrderScreen() {
-    console.log(11,orders)
   return (
 <FlatList
         data={orders}

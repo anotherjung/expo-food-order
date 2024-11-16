@@ -7,8 +7,6 @@ import { supabase } from '@/lib/supabase';
 
 const index = () => {
   const { session, loading, isAdmin } = useAuth();
-
-  console.warn(11,{isAdmin}, session)
   if (loading) {
     return <ActivityIndicator />;
   }

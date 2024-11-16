@@ -2,7 +2,6 @@ import { Order } from '@/types';
 import products from './products';
 
 const now = new Date().getTime()
-console.log(33, products)
 const orders: Order[] = [
   {
     id: 23123,

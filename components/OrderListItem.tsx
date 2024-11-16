@@ -7,7 +7,6 @@ type OrderListItemProps = {
   };
   
 const OrderListItem = ( { order }: OrderListItemProps ) => {
-    console.log(33,order)
     const segments = useSegments();
 
     return (
