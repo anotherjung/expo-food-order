@@ -46,8 +46,8 @@ type AuthData = {
       }, []);
 
     return (
-        <AuthContext.Provider value={{ session, loading, profile }} >
-          {children}
+        <AuthContext.Provider value={{ session, loading, profile, isAdmin: profile?.group === 'ADMIN' }} >
+          {children} 
         </AuthContext.Provider>
       );
   }

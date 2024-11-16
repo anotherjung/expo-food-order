@@ -8,7 +8,6 @@ type OrderItemListItemProps = {
   };
 
 const OrderItemListItem = ({ item }: OrderItemListItemProps) => {
-    console.log(55,item)
     return (
       <View style={styles.container}>
         <Image
