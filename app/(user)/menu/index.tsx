@@ -6,29 +6,23 @@ import { supabase } from '@/lib/supabase';
 import { useQuery } from '@tanstack/react-query'
 
 export default function MenuScreen() {
-  let productList
+  console.log(33, products)
 
-  useEffect(()=>{
-    const fetchProducts = async () =>{
+  const {data, isLoading, error } = useQuery<Product[]>({
+    queryKey: ['products'],
+    queryFn: async () => {
       const { data, error } = await supabase.from('products').select('*');
-      console.log(22,data)
       if (error) {
         throw new Error(error.message);
       }
-      productList = data
-      console.log(44,productList)
-    }
-    fetchProducts()
-  },[])
-
-  console.log(33, products)
-
-
-
+      console.warn(44,data)
+      return data;  
+    },
+  });
 
   return (
       <FlatList 
-        data={products}
+        data={data}
         renderItem={({item})=><ProductListItem product={item} />}
         numColumns={2}
         contentContainerStyle={{gap:10, padding: 10}}
