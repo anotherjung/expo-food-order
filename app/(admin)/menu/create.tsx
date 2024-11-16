@@ -9,6 +9,7 @@ import {
   useInsertProduct,
   useUpdateProduct,
   useProduct,
+  useDeleteProduct,
 } from '@/api/products';
 
 const CreateProductScreen = () => {
@@ -84,7 +85,7 @@ const CreateProductScreen = () => {
           setImage(updatingProduct.image);
         }
       }, [updatingProduct]);
-      
+
       const onUpdate = async () => {
         if (!validateInput()) {
           return;
@@ -101,9 +102,14 @@ const CreateProductScreen = () => {
         );
       };
 
+      const { mutate: deleteProduct } = useDeleteProduct();
       const onDelete = () => {
-        resetFields();
-        router.replace('/(admin)');
+        deleteProduct(id, {
+          onSuccess: () => {
+            resetFields();
+            router.replace('/(admin)');
+          },
+        });
       };
 
       const confirmDelete = () => {
