@@ -12,7 +12,7 @@ const index = () => {
   }
 
   if (!session) {
-    return <Redirect href={'/sign-in'} />;
+    return <Redirect href={'/(auth)/sign-in'} />;
   }
 
   //todo
@@ -22,7 +22,7 @@ const index = () => {
  
   return (
     <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
-      <Text>1</Text>
+      <Text></Text>
       <Link href={'/(user)'} asChild>
         <Button text="User" />
       </Link>

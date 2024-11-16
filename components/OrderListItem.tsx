@@ -1,10 +1,10 @@
 import { Text, FlatList, View, StyleSheet, Pressable } from "react-native"
 import { Link, useSegments } from 'expo-router';
-import { Order } from "@/types";
+import { Order, Tables } from "@/types";
 
 type OrderListItemProps = {
-    order: Order;
-  };
+  order: Tables<'orders'>;
+};
   
 const OrderListItem = ( { order }: OrderListItemProps ) => {
     const segments = useSegments();

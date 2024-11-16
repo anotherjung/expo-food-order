@@ -1,4 +1,4 @@
-import { FlatList } from 'react-native';
+import { Text, FlatList, ActivityIndicator } from 'react-native';
 import ProductListItem from '@/components/productListItem';
 import { useEffect } from 'react';
 import { supabase } from '@/lib/supabase';
