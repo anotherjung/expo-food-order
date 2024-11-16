@@ -2,8 +2,20 @@ import { View, Text, ActivityIndicator } from 'react-native';
 import React from 'react';
 import Button from '../components/Button';
 import { Link, Redirect } from 'expo-router';
+import { useAuth } from '@/providers/AuthProvider';
+import { supabase } from '@/lib/supabase';
 
 const index = () => {
+  const { session, loading, isAdmin } = useAuth();
+
+  console.warn(11,session)
+  if (loading) {
+    return <ActivityIndicator />;
+  }
+
+  if (!session) {
+    return <Redirect href={'/sign-in'} />;
+  }
  
   return (
     <View style={{ flex: 1, justifyContent: 'center', padding: 10 }}>
@@ -16,6 +28,8 @@ const index = () => {
       <Link href={'/(auth)/sign-in'} asChild>
       <Button  text="Sign in" />
       </Link>
+
+      <Button onPress={() => supabase.auth.signOut()} text="Sign out" />
     </View>
   );
 };

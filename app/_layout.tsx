@@ -7,6 +7,7 @@ import 'react-native-reanimated';
 
 import { useColorScheme } from '@/hooks/useColorScheme';
 import CartProvider from '@/providers/CartProvider';
+import AuthProvider from '@/providers/AuthProvider';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -29,6 +30,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      <AuthProvider>
       <CartProvider>
         <Stack>
           <Stack.Screen name="(user)" options={{ headerShown: false }} />
@@ -39,6 +41,7 @@ export default function RootLayout() {
             }} />
         </Stack>
       </CartProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 }
