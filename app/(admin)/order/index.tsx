@@ -4,10 +4,13 @@ import products from '@/assets/data/products';
 import orders from '@/assets/data/orders'
 import OrderListItem from '@/components/OrderListItem';
 import { useAdminOrderList } from '@/api/orders';
+import { useInsertOrderSubscription } from '@/api/orders/subscriptions';
 
 export default function OrderScreen() {
   const { data: orders, isLoading, error } = useAdminOrderList();
 
+  useInsertOrderSubscription();
+  
   if (isLoading) {
     return <ActivityIndicator />;
   }
