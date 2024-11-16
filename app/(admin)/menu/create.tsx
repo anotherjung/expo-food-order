@@ -7,6 +7,8 @@ import * as ImagePicker from 'expo-image-picker';
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
 import {
   useInsertProduct,
+  useUpdateProduct,
+  useProduct,
 } from '@/api/products';
 
 const CreateProductScreen = () => {
@@ -44,7 +46,6 @@ const CreateProductScreen = () => {
       typeof idString === 'string' ? idString : idString?.[0]
     );
     const isUpdating = !!idString;
-    console.log(88,id)
 
     const onSubmit = () => {
         console.log(44,name,price,image,errors)
@@ -74,10 +75,30 @@ const CreateProductScreen = () => {
         );
       };
 
+      const { mutate: updateProduct } = useUpdateProduct();
+      const { data: updatingProduct } = useProduct(id);
+      useEffect(() => {
+        if (updatingProduct) {
+          setName(updatingProduct.name);
+          setPrice(updatingProduct.price.toString());
+          setImage(updatingProduct.image);
+        }
+      }, [updatingProduct]);
+      
       const onUpdate = async () => {
         if (!validateInput()) {
           return;
         }
+
+        updateProduct(
+          { id, name, price: parseFloat(price), image },
+          {
+            onSuccess: () => {
+              resetFields();
+              router.back();
+            },
+          }
+        );
       };
 
       const onDelete = () => {

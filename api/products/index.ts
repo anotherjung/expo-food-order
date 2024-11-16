@@ -36,7 +36,6 @@ export const useInsertProduct = () => {
 
     return useMutation({
         async mutationFn(data: any) {
-            console.warn(11,"api",data)
         const { error, data: newProduct } = await supabase
             .from('products')
             .insert({
@@ -56,3 +55,31 @@ export const useInsertProduct = () => {
         },
     });
     };
+
+    export const useUpdateProduct = () => {
+        const queryClient = useQueryClient();
+      
+        return useMutation({
+          async mutationFn(data: any) {
+            const { error, data: updatedProduct } = await supabase
+              .from('products')
+              .update({
+                name: data.name,
+                image: data.image,
+                price: data.price,
+              })
+              .eq('id', data.id)
+              .select()
+              .single();
+      
+            if (error) {
+              throw new Error(error.message);
+            }
+            return updatedProduct;
+          },
+          async onSuccess(_, { id }) {
+            await queryClient.invalidateQueries(['products']);
+            await queryClient.invalidateQueries(['products', id]);
+          },
+        });
+      };
