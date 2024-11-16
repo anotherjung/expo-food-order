@@ -25,9 +25,11 @@ const CartContext = createContext<CartType>({
 
 const CartProvider = ({children}: PropsWithChildren) => {
     const [items, setItems] = useState<CartItem[]>([]);
-    const router = useRouter();
+
     const { mutate: insertOrder } = useInsertOrder();
     const { mutate: insertOrderItems } = useInsertOrderItems();
+
+    const router = useRouter();
 
     const addItem = (product: Product, size: CartItem['size']) => {
         const existingItem = items.find(
@@ -84,7 +86,7 @@ const CartProvider = ({children}: PropsWithChildren) => {
         quantity: cartItem.quantity,
         size: cartItem.size,
       }));
-      
+
       insertOrderItems(orderItems, {
         onSuccess() {
           clearCart();
